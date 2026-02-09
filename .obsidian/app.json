@@ -1,0 +1,8 @@
+{
+  "newFileLocation": "folder",
+  "newFileFolderPath": "_posts",
+  "attachmentFolderPath": "./../assets/img/posts",
+  "useMarkdownLinks": true,
+  "alwaysUpdateLinks": true,
+  "strictLineBreaks": true
+}

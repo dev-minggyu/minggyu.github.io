@@ -36,8 +36,6 @@ categories: [<% categories %>]
 tags: [<% tags %>]
 ---
 
-# <% title %>
-
 ## Overview
 
 

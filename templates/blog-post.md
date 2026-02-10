@@ -1,50 +1,61 @@
-﻿<%*
-// 1. 제목 입력
+<%*
+// 제목 입력
 const title = await tp.system.prompt("Post Title");
-if (!title) {
-    await tp.file.delete();
+
+if (!title || title.trim() === "") {
+    new Notice("타이틀 비어있음");
+    const file = tp.file.find_tfile(tp.file.path(true));
+    await app.vault.delete(file);
     return;
 }
 
-// 2. 파일명 생성 (YYYY-MM-DD-slug.md)
+// 제목 정리
+const cleanTitle = title.trim();
+
+// 날짜/시간 생성
 const date = tp.date.now("YYYY-MM-DD");
-const slug = title
+const datetime = tp.date.now("YYYY-MM-DD HH:mm:ss");
+
+// 파일명 생성
+const slug = cleanTitle
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[:\[\]{}()'"#?!@$%^&*+=\/\\|<>]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
     .trim();
+
+if (!slug) {
+    new Notice("잘못된 파일명");
+    return;
+}
+
 const fileName = `${date}-${slug}`;
+
+// 중복 체크
+const currentPath = tp.file.path(true);
+const folder = currentPath.substring(0, currentPath.lastIndexOf('/'));
+const targetPath = `${folder}/${fileName}.md`;
+const existingFile = app.vault.getAbstractFileByPath(targetPath);
+
+if (existingFile && existingFile.path !== currentPath) {
+    new Notice("파일 중복");
+    return;
+}
+
+// 파일명 변경
 await tp.file.rename(fileName);
-
-// 3. 카테고리 입력
-const categoryInput = await tp.system.prompt("Category (comma separated)");
-const categories = categoryInput 
-    ? categoryInput.split(',').map(c => c.trim()).join(', ')
-    : '';
-
-// 4. 태그 입력
-const tagsInput = await tp.system.prompt("Tags (comma separated)");
-const tags = tagsInput 
-    ? tagsInput.split(',').map(t => t.trim()).join(', ')
-    : '';
+new Notice("파일 생성: " + fileName);
 -%>
 ---
-title: <% title %>
-date: <% tp.date.now("YYYY-MM-DD HH:mm:ss") %> +0900
-categories: [<% categories %>]
-tags: [<% tags %>]
+title: "<% title %>"
+date: <% datetime %> +0900
+categories: []
+tags: []
+comments: true
 ---
 
 ## Overview
-
-
-## Content
-
-
-## Conclusion
-
-
 
 ---
 

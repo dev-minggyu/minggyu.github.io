@@ -1,0 +1,54 @@
+<script>
+(function() {
+  const database = firebase.database();
+  const pageUrl = window.location.pathname;
+  
+  // URL을 Firebase 키로 변환 (/, ., #, $, [, ] 제거)
+  const pageKey = pageUrl.replace(/\//g, '_').replace(/[.$#\[\]]/g, '');
+  const pageRef = database.ref('views/' + pageKey);
+  
+  // 조회수 증가
+  pageRef.transaction(function(currentViews) {
+    return (currentViews || 0) + 1;
+  });
+  
+  // 실시간 조회수 표시
+  pageRef.on('value', function(snapshot) {
+    const views = snapshot.val() || 0;
+    const viewElement = document.getElementById('page-views-count');
+    if (viewElement) {
+      viewElement.textContent = views.toLocaleString();
+    }
+  });
+})();
+</script>
+
+<span class="page-views">
+  <i class="fas fa-eye"></i>
+  <span id="page-views-count">-</span>
+  views
+</span>
+
+<style>
+.page-views {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-muted-color, #666);
+  font-size: 0.9rem;
+}
+
+.page-views i {
+  color: var(--text-muted-color, #999);
+  font-size: 0.9em;
+}
+
+/* 다크모드 */
+[data-mode="dark"] .page-views {
+  color: #aaa;
+}
+
+[data-mode="dark"] .page-views i {
+  color: #888;
+}
+</style>

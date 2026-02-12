@@ -89,6 +89,12 @@ script_includes:
 			  {{ site.data.locales[lang].post.pageview_measure }}
 			</span>
 		  {% endif %}
+		  
+          <!-- 조회수 -->
+          {% include page-views.html %}
+        
+          <!-- 구분선 -->
+          &ensp;•&ensp;
 
 		  <!-- read time -->
 		  {% include read-time.html content=content prompt=true lang=lang %}

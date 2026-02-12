@@ -1,0 +1,99 @@
+<script>
+(function() {
+  const database = firebase.database();
+  
+  // 총 방문자수 증가 및 표시
+  const totalRef = database.ref('stats/total_visits');
+  totalRef.transaction(function(current) {
+    return (current || 0) + 1;
+  });
+  
+  totalRef.on('value', function(snapshot) {
+    const total = snapshot.val() || 0;
+    const elem = document.getElementById('total-visits');
+    if (elem) elem.textContent = total.toLocaleString();
+  });
+  
+  // 오늘 방문자수 증가 및 표시
+  const today = new Date().toISOString().split('T')[0];
+  const todayRef = database.ref('stats/daily/' + today);
+  
+  todayRef.transaction(function(current) {
+    return (current || 0) + 1;
+  });
+  
+  todayRef.on('value', function(snapshot) {
+    const todayCount = snapshot.val() || 0;
+    const elem = document.getElementById('today-visits');
+    if (elem) elem.textContent = todayCount.toLocaleString();
+  });
+})();
+</script>
+
+<div class="site-stats">
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-label">오늘 방문자</div>
+      <div class="stat-value" id="today-visits">-</div>
+    </div>
+    
+    <div class="stat-box">
+      <div class="stat-label">총 방문자</div>
+      <div class="stat-value" id="total-visits">-</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.site-stats {
+  margin: 1rem auto;
+  max-width: 100%;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+}
+
+.stat-box {
+  padding: 0.8rem 0.5rem;
+}
+
+.stat-box .stat-label {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.stat-box .stat-value {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  letter-spacing: 1px;
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .stat-box .stat-label {
+    color: #aaa;
+  }
+  
+  .stat-box .stat-value {
+    color: #fff;
+  }
+}
+
+.dark .stat-box .stat-label,
+body.dark .stat-box .stat-label {
+  color: #aaa;
+}
+
+.dark .stat-box .stat-value,
+body.dark .stat-box .stat-value {
+  color: #fff;
+}
+</style>

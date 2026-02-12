@@ -7,3 +7,40 @@
   .bundle
 {%- endif -%}
 ';
+
+/* ============================================
+   소셜 링크 가운데 정렬
+   ============================================ */
+
+.sidebar-bottom {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0.5rem 0 !important;
+  margin: 0 !important;
+  gap: 0.4rem;
+}
+
+.sidebar-bottom > * {
+  margin: 0 !important;
+}
+
+.sidebar-bottom .btn-link,
+.sidebar-bottom > a {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-bottom .icon-border {
+  width: 1px;
+  height: 1.5rem;
+  background: rgba(158, 158, 158, 0.25);
+  margin: 0 0.2rem !important;
+}
+
+html[data-mode='dark'] .sidebar-bottom .icon-border {
+  background: rgba(255, 255, 255, 0.15);
+}

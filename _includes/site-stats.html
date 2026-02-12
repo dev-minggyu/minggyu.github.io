@@ -2,7 +2,7 @@
 (function() {
   const database = firebase.database();
   
-  // 총 방문자수 증가 및 표시
+  /* 총 방문자수 증가 및 표시 */
   const totalRef = database.ref('stats/total_visits');
   totalRef.transaction(function(current) {
     return (current || 0) + 1;
@@ -14,7 +14,7 @@
     if (elem) elem.textContent = total.toLocaleString();
   });
   
-  // 오늘 방문자수 증가 및 표시
+  /* 오늘 방문자수 증가 및 표시 */
   const today = new Date().toISOString().split('T')[0];
   const todayRef = database.ref('stats/daily/' + today);
   

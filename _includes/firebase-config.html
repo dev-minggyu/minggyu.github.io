@@ -3,41 +3,21 @@
 <script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-database-compat.js"></script>
 
 <script>
-  (function initFirebase() {
-    // Firebase SDK 로드 대기
-    if (typeof firebase === 'undefined') {
-      console.log('⏳ Waiting for Firebase SDK...');
-      setTimeout(initFirebase, 50);
-      return;
-    }
-    
-    console.log('📦 Firebase SDK loaded');
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyADKY_FZ1kzymPYgg3lFEASNG1p8D6DJI4",
-      authDomain: "blog-dev-minggyu.firebaseapp.com",
-      databaseURL: "https://blog-dev-minggyu-default-rtdb.firebaseio.com",
-      projectId: "blog-dev-minggyu",
-      storageBucket: "blog-dev-minggyu.firebasestorage.app",
-      messagingSenderId: "222111106568",
-      appId: "1:222111106568:web:000f9f95bcd794f07eb3bd",
-      measurementId: "G-4HR6ESMNPJ"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyADKY_FZ1kzymPYgg3lFEASNG1p8D6DJI4",
+    authDomain: "blog-dev-minggyu.firebaseapp.com",
+    databaseURL: "https://blog-dev-minggyu-default-rtdb.firebaseio.com",
+    projectId: "blog-dev-minggyu",
+    storageBucket: "blog-dev-minggyu.firebasestorage.app",
+    messagingSenderId: "222111106568",
+    appId: "1:222111106568:web:000f9f95bcd794f07eb3bd",
+    measurementId: "G-4HR6ESMNPJ"
+  };
 
-    try {
-      // Firebase 초기화
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-        console.log('✅ Firebase initialized, apps:', firebase.apps.length);
-      } else {
-        console.log('ℹ️ Firebase already initialized');
-      }
-      
-      const database = firebase.database();
-      console.log('✅ Database ready');
-      
-    } catch (error) {
-      console.error('❌ Firebase init error:', error);
-    }
-  })();
+  /* Firebase 초기화 */
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const database = firebase.database();
 </script>

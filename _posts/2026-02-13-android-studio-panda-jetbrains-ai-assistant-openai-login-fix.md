@@ -12,7 +12,7 @@ comments: true
 
 ## Overview
 
-현재 Android Studio **Panda 1 | 2025.3.1** 환경에서 JetBrains AI Assistant를 설치한 뒤, OpenAI 로그인(`Sign in to Codex with ChatGPT`)을 시도하면 진행되지 않고 IDE 오류가 발생하는 문제가 있습니다.
+현재 Android Studio **Panda 1 | 2025.3.1** 환경에서 JetBrains AI Assistant를 설치한 뒤, OpenAI 로그인(`Sign in to Codex with ChatGPT`)을 시도하면 진행되지 않고 IDE 오류가 발생하는 버그가 있습니다.
 
 지금은 해결해서 오류 메시지는 정확히 기억나지 않지만 내용은 `OpenAI 인증 URL 리소스가 누락` 관련 내용이었던걸로 기억합니다.
 
@@ -44,9 +44,12 @@ comments: true
 ## 해결 방법
 
 `Settings > Plugins > Marketplace`에서 **MCP Server** 플러그인을 설치한 뒤 IDE를 재시작하면 됩니다.
-### 3) MCP Server 플러그인
+### MCP Server 플러그인
 
 ![Marketplace MCP Server 플러그인](/assets/img/posts/2026-02-13-android-studio-panda-codex/03-marketplace-mcp-server.png)
+### 4) 로그인 후 화면
+
+![Codex 로그인 후 실제 화면](/assets/img/posts/2026-02-13-android-studio-panda-codex/04-codex-login-success.png)
 
 
 여담이지만,, Codex CLI, App, Plugin 형태로 모두 사용해봤지만 앱이 가장 편했던 것 같습니다!

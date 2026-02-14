@@ -14,7 +14,17 @@ comments: true
 
 현재 Android Studio **Panda 1 \| 2025.3.1** 환경에서 JetBrains AI Assistant를 설치한 뒤, OpenAI 로그인(`Sign in to Codex with ChatGPT`)을 시도하면 진행되지 않고 IDE 오류가 발생하는 버그가 있습니다.
 
-지금은 해결해서 오류 메시지는 정확히 기억나지 않지만 내용은 `OpenAI 인증 URL 리소스가 누락` 관련 내용이었던 걸로 기억합니다.
+실제 발생한 오류는 `OpenAI 인증 URL 리소스`가 누락되어 발생하는 문제로 보여집니다.
+
+```text
+java.util.MissingResourceException: Registry key llm.chat.agent.codex.openai.apache.license.tos.url is not defined
+    at com.intellij.openapi.util.registry.Registry.getBundleValue$intellij_platform_util(Registry.kt:372)
+    at com.intellij.openapi.util.registry.RegistryValue.resolveRequiredValue(RegistryValue.kt:209)
+    at com.intellij.openapi.util.registry.RegistryValue.asString(RegistryValue.kt:46)
+    at com.intellij.openapi.util.registry.Registry$Companion.stringValue(Registry.kt:145)
+    at com.intellij.ml.llm.core.ui.activation.CodexAuthSwingDslUi.lambda$2$5(CodexAuthSwingDslUi.kt:100)
+    at com.intellij.ml.llm.core.ui.activation.CodexAuthSwingDslUi.<init>(CodexAuthSwingDslUi.kt:71)
+```
 
 결론부터 말하면, Marketplace에서 **`MCP Server`** 플러그인을 설치하면 바로 해결됩니다.
 
